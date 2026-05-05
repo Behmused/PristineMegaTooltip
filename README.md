@@ -19,7 +19,7 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 
 ## Requirements
 
-* Ostranauts — Build 0.15.0.26 (64) public_test
+* Ostranauts — Build 0.15.0.25 or Build 0.15.0.26 (64) public_test
 * BepInEx
 
 ---
