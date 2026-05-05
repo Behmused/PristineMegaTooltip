@@ -11,9 +11,9 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 * Expands the mega tooltip by default
 * Displays condition labels (Pristine, Refurbished, Like New, Worn, Used)
 * Reduces font size for improved layout readability
-* ![Pristine Mega Tooltip Example](images/Screenshot_20260504_233453.png)
-* ![Pristine Mega Tooltip Example](images/Screenshot_20260504_233436.png)
-* ![Pristine Mega Tooltip Example](images/Screenshot_20260504_233411.png)
+* ![Pristine Mega Tooltip Example](images/Screenshot_20260505_101246.png)
+* ![Pristine Mega Tooltip Example](images/Screenshot_20260505_101317.png)
+* ![Pristine Mega Tooltip Example](images/Screenshot_20260505_101329.png)
 
 ---
 
