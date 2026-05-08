@@ -7,13 +7,13 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 
-[BepInPlugin("com.bemused.conditiontooltip", "Condition Tooltip", "0.7.0")]
-public class ConditionTooltipPlugin : BaseUnityPlugin
+[BepInPlugin("com.bemused.pristinemegatooltip", "Pristine MegaTooltip", "1.1.0")]
+public class PristineMegaTooltipPlugin : BaseUnityPlugin
 {
     private void Awake()
     {
-        new Harmony("com.bemused.conditiontooltip").PatchAll();
-        Logger.LogInfo("Condition Tooltip 0.7.0 loaded.");
+        new Harmony("com.bemused.pristinemegatooltip").PatchAll();
+        Logger.LogInfo("Pristine MegaTooltip 1.1.0 loaded.");
     }
 }
 
@@ -35,9 +35,48 @@ internal static class TooltipUtil
 
         return default(T);
     }
+
+    public static string GetValueText(CondOwner co)
+    {
+        if (co == null)
+            return "";
+
+        if (!co.HasCond("StatBasePrice"))
+            return "";
+
+        try
+        {
+            CondOwner selectedCrew = CrewSim.GetSelectedCrew();
+            double basePrice = co.GetBasePrice(true);
+
+            if (selectedCrew == null || selectedCrew.HasCond("SkillAdmin"))
+                return "~$" + basePrice.ToString("n");
+
+            if (basePrice > 30000.0)
+                return "$$$$$";
+
+            if (basePrice > 6000.0)
+                return "$$$$";
+
+            if (basePrice > 900.0)
+                return "$$$";
+
+            if (basePrice > 100.0)
+                return "$$";
+
+            if (basePrice > 10.0)
+                return "$";
+
+            return "";
+        }
+        catch
+        {
+            return "";
+        }
+    }
 }
 
-#region Name + Descriptor + Font Scaling
+#region Name + Descriptor + Value + Font Scaling
 
 [HarmonyPatch(typeof(ItemModule), "SetData")]
 public static class Patch_ItemModule_SetData
@@ -58,9 +97,15 @@ public static class Patch_ItemModule_SetData
             string descriptor = co.GetDamageDescriptor();
             descriptor = descriptor?.Trim().Trim('(', ')');
 
+            string valueText = TooltipUtil.GetValueText(co);
+            string nameLine = co.strNameFriendly;
+
+            if (!string.IsNullOrWhiteSpace(valueText))
+                nameLine += "  <color=#017101>" + valueText + "</color>";
+
             txtName.text = string.IsNullOrWhiteSpace(descriptor)
-            ? co.strNameFriendly
-            : "<color=#00ff00>" + descriptor + "</color>\n" + co.strNameFriendly;
+            ? nameLine
+            : "<color=#00ff00>" + descriptor + "</color>\n" + nameLine;
 
             txtName.fontSize *= 0.85f;
             txtDesc.fontSize *= 0.65f;
@@ -92,7 +137,7 @@ public static class Patch_ItemModule_SetData
         }
         catch (Exception e)
         {
-            Debug.LogError("[ConditionTooltip] ItemModule patch failed: " + e);
+            Debug.LogError("[PristineMegaTooltip] ItemModule patch failed: " + e);
         }
     }
 }
@@ -120,14 +165,14 @@ public static class Patch_ToggleMoreModule_Start
         }
         catch (Exception e)
         {
-            Debug.LogError("[ConditionTooltip] ToggleMoreModule patch failed: " + e);
+            Debug.LogError("[PristineMegaTooltip] ToggleMoreModule patch failed: " + e);
         }
     }
 }
 
 #endregion
 
-#region Remove $$$ Value Safely
+#region Hide Original Value Module
 
 [HarmonyPatch(typeof(ValueModule), "SetData")]
 public static class Patch_ValueModule_SetData
@@ -159,7 +204,7 @@ public static class Patch_ValueModule_SetData
         }
         catch (Exception e)
         {
-            Debug.LogError("[ConditionTooltip] ValueModule patch failed: " + e);
+            Debug.LogError("[PristineMegaTooltip] ValueModule patch failed: " + e);
         }
     }
 }
@@ -175,16 +220,26 @@ public static class Patch_CondElement_SetData
     {
         try
         {
-            TMP_Text[] texts = ((Component)__instance).GetComponentsInChildren<TMP_Text>(true);
+            var comp = (Component)__instance;
 
+            TMP_Text[] texts = comp.GetComponentsInChildren<TMP_Text>(true);
             foreach (TMP_Text txt in texts)
             {
                 txt.fontSize *= 0.75f;
             }
+
+            var layout = comp.GetComponent<UnityEngine.UI.VerticalLayoutGroup>();
+            if (layout != null)
+            {
+                layout.padding.left = 4;
+                layout.padding.right = 4;
+                layout.padding.top = 2;
+                layout.padding.bottom = 0;
+            }
         }
         catch (Exception e)
         {
-            Debug.LogError("[ConditionTooltip] CondElement patch failed: " + e);
+            Debug.LogError("[PristineMegaTooltip] CondElement patch failed: " + e);
         }
     }
 }
