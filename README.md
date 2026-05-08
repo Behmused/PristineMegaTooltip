@@ -7,7 +7,7 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 ## Features
 
 * Removes item image from the mega tooltip
-* Removes value (`$`) display
+* Restored value (`$`) display
 * Expands the mega tooltip by default
 * Displays condition labels (Pristine, Refurbished, Like New, Worn, Used)
 * Reduces font size for improved layout readability
@@ -19,8 +19,7 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 
 ## Requirements
 
-* Ostranauts — Build 0.15.0.25 or Build 0.15.0.26 (64) public_test
-* BepInEx
+* [BepInExPack_Ostranauts](https://new.thunderstore.io/c/ostranauts/p/BepInEx/BepInExPack_Ostranauts)
 
 ---
 
@@ -36,15 +35,9 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 
 ---
 
-## Files
-
-* `PristineMegaTooltip.dll` → compiled plugin
-* `.cs` files → source code
-
----
-
 ## Compatibility
 
+* Updated for Ostranauts Build 0.15.0.29
 * Works alongside **PristineMouseover**
 * May conflict with other tooltip/UI mods
 
@@ -52,7 +45,7 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 
 ## Related Mod
 
-**PristineMouseover**
+**[Pristine Mouseover](https://github.com/Behmused/PristineMouseover)**
 
 * Adds `(P)` to item mouseover tooltip if item is Pristine
 
