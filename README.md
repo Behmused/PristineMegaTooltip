@@ -15,6 +15,8 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 * ![Pristine Mega Tooltip Example](images/Screenshot_20260505_101317.png)
 * ![Pristine Mega Tooltip Example](images/Screenshot_20260505_101329.png)
 
+Tested on Ostranauts 0.15.0.30 (64).
+
 ---
 
 ## Requirements
@@ -37,7 +39,6 @@ Ostranauts mod that simplifies the mega tooltip by removing clutter and displayi
 
 ## Compatibility
 
-* Updated for Ostranauts Build 0.15.0.29
 * Works alongside **PristineMouseover**
 * May conflict with other tooltip/UI mods
 
